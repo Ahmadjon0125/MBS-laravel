@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Product extends Model
+{
+    protected $fillable = ['title', 'text', 'list', 'link', 'slug'];
+     public function product_photos(): HasMany
+    {
+        return $this->hasMany(ProductPhotos::class);
+    }
+}

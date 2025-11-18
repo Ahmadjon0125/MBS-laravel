@@ -1,0 +1,367 @@
+// const header = document.getElementById("mainHeader");
+
+// window.addEventListener("scroll", () => {
+//   if (window.scrollY > 0) {
+//     header.classList.add(
+//       "shadow-lg",
+//       "bg-white",
+
+//       "bg-transparent"
+//     );
+//   } else {
+//     header.classList.remove(
+//       "shadow-lg",
+//       "bg-white",
+
+//       "bg-transparent"
+//     );
+//   }
+// });
+
+
+const header = document.getElementById("mainHeader");
+
+function updateHeader() {
+  if (window.scrollY > 0) {
+    header.classList.add("shadow-lg", "bg-white", "bg-transparent");
+  } else {
+    header.classList.remove("shadow-lg", "bg-white", "bg-transparent");
+  }
+}
+
+// Sahifa scroll bo‘lganda ishlaydi
+window.addEventListener("scroll", updateHeader);
+
+// Sahifa to‘liq yuklanganda ham tekshiramiz
+window.addEventListener("load", updateHeader);
+
+
+const langBtn = document.getElementById("langBtn");
+const langMenu = document.getElementById("langMenu");
+const lanBtnVal = document.getElementById("lanBtnVal");
+
+langBtn.addEventListener("click", () => {
+  langMenu.classList.toggle("show");
+});
+
+langMenu.addEventListener("click", (e) => {
+  lanBtnVal.textContent = e.target.innerText;
+  langMenu.classList.toggle("show");
+});
+
+// Burger Menu
+const burger = document.getElementById("burger");
+const mobileNav = document.getElementById("mobileNav");
+const overlay = document.getElementById("overlay");
+
+burger.addEventListener("click", () => {
+  burger.classList.toggle("active");
+  mobileNav.classList.toggle("active");
+  overlay.classList.toggle("active");
+  document.body.style.overflow = burger.classList.contains("active")
+    ? "hidden"
+    : "";
+});
+
+overlay.addEventListener("click", () => {
+  burger.classList.remove("active");
+  mobileNav.classList.remove("active");
+  overlay.classList.remove("active");
+  document.body.style.overflow = "";
+});
+
+const mobileNavLinks = document.querySelectorAll(".mobile-nav a");
+mobileNavLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    burger.classList.remove("active");
+    mobileNav.classList.remove("active");
+    overlay.classList.remove("active");
+    document.body.style.overflow = "";
+  });
+});
+
+const swiper = new Swiper(".mySwiper", {
+  slidesPerView: 1,
+  spaceBetween: 30,
+  loop: true,
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+});
+
+var swiper2 = new Swiper(".mySwiper2", {
+  // Asosiy sozlamalar
+  loop: true,
+  speed: 600,
+
+  // Hamma ekranlarda 5 ta rasm ko'rinsin (sizning asosiy talabingiz)
+  slidesPerView: 2,
+
+  // MUHIM: Hamma ekranlarda pagination ko'rinishi uchun!
+  slidesPerGroup: 2, // Har bir slaydni alohida sahifa deb hisoblashga majbur qiladi.
+
+  // loop: true to'g'ri ishlashi uchun zarur (rasmlar soniga teng)
+  loopedSlides: 5,
+
+  spaceBetween: 30,
+  // centeredSlides: true,
+
+  pagination: {
+    el: ".pag2",
+    clickable: true,
+  },
+
+  // Kichik ekranlarda 3 ta ko'rinadigan qismni ham breakpointga qo'shamiz (ixtiyoriy)
+  breakpoints: {
+    // 768px dan kichik ekranlar uchun
+    768: {
+      slidesPerView: 3,
+      slidesPerGroup: 1, // Kichik ekranda ham har bir slayd alohida hisoblansin
+      spaceBetween: 20,
+    },
+    // 1024px dan yuqori ekranlar uchun
+    1024: {
+      slidesPerView: 5,
+      slidesPerGroup: 1,
+      spaceBetween: 30,
+    },
+  },
+});
+
+// -------------------   Agar paginatsiya chiziqlari faqat 3 tagina chiqsin deyilsa pastdagini ishlatamiz     -------------------
+
+// var swiper2 = new Swiper(".mySwiper2", {
+//     loop: true,
+//     speed: 600,
+//     slidesPerView: 2,
+//     slidesPerGroup: 2,
+//     spaceBetween: 30,
+
+//     pagination: {
+//         el: ".pag2",
+//         clickable: true,
+//         renderBullet: function (index, className) {
+//             // Faqat 3 ta pagination bullet chiqadi
+//             if (index < 3) {
+//                 return '<span class="' + className + '"></span>';
+//             }
+//             return ''; // qolganlarini yashiramiz
+//         },
+//     },
+
+//     breakpoints: {
+//         768: {
+//             slidesPerView: 3,
+//             slidesPerGroup: 1,
+//             spaceBetween: 20
+//         },
+//         1024: {
+//             slidesPerView: 5,
+//             slidesPerGroup: 1,
+//             spaceBetween: 30
+//         }
+//     }
+// });
+
+// ------------------------------||||||||||||||||||||||||||||||||----------------------
+
+// Fancybox
+
+Fancybox.bind("[data-fancybox]", {
+  Carousel: {
+    Video: {
+      autoplay: false,
+    },
+  },
+});
+
+
+
+const thumbs = new Swiper('.thumb-slider', {
+  spaceBetween: 16,
+  freeMode: true,
+  watchSlidesProgress: true,
+  grabCursor: true,
+  slidesPerView: 2,
+
+  breakpoints: {
+    320: {
+      slidesPerView: 2, // juda kichik ekranlar
+      spaceBetween: 8,
+    },
+    640: {
+      slidesPerView: 3,
+      spaceBetween: 12,
+    },
+    768: {
+      slidesPerView: 4,
+      spaceBetween: 20,
+    },
+    1024: {
+      slidesPerView: 5,
+      spaceBetween: 30,
+    },
+    1280: {
+      slidesPerView: 6,
+      spaceBetween: 48,
+    },
+  },
+});
+
+
+  const main = new Swiper('.main-slider', {
+    spaceBetween: 10,
+    loop: false,
+    navigation: {
+      nextEl: '.next1',
+      prevEl: '.prev1',
+    },
+    thumbs: {
+      swiper: thumbs,
+    },
+  });
+
+
+// portfolio
+ 
+  
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Sozlamalar ---
+        const initialCardsToShow = 4; // Dastlab nechta card ko'rinib tursin
+        const cardsPerClick = 2;       // Har bosilganda nechta card qo'shilsin
+        // -------------------
+
+        const showMoreBtn = document.getElementById('show-more-btn');
+        const allCards = document.querySelectorAll('#card-container .card-item');
+        let currentShownCount = 0; // Hozirda ko'rinib turgan cardlar soni
+
+        // 1. Dastlabki Holatni Sozlash (Init Function)
+        function initializeCards() {
+            // Agar umuman card bo'lmasa, funksiyadan chiqamiz
+            if (allCards.length === 0) {
+                showMoreBtn.style.display = 'none';
+                return;
+            }
+            
+            // 1a. Barcha cardlarni yashirish
+            allCards.forEach(card => {
+                card.classList.add('hidden');
+            });
+            
+            // 1b. Dastlabki ko'rinishi kerak bo'lgan cardlarni ochish
+            for (let i = 0; i < allCards.length && i < initialCardsToShow; i++) {
+                allCards[i].classList.remove('hidden');
+                currentShownCount++;
+            }
+            
+            // 1c. Agar barcha cardlar ko'rinib turgan bo'lsa, tugmani yashirish
+            if (currentShownCount >= allCards.length) {
+                showMoreBtn.style.display = 'none';
+            }
+        }
+        
+        // 2. "Ko'proq Ko'rsatish" Funksiyasi
+        function showNextCards(e) {
+            e.preventDefault();
+
+            const totalCards = allCards.length;
+            const nextCardsStart = currentShownCount; // Keyingi cardlar boshlanadigan indeks
+            const nextCardsEnd = Math.min(nextCardsStart + cardsPerClick, totalCards);
+            
+            // Cardlarni ko'rsatish
+            for (let i = nextCardsStart; i < nextCardsEnd; i++) {
+                allCards[i].classList.remove('hidden');
+                currentShownCount++;
+            }
+            
+            // Barcha cardlar ko'rsatilgan bo'lsa, tugmani yashirish
+            if (currentShownCount >= totalCards) {
+                showMoreBtn.style.display = 'none';
+            }
+        }
+
+        // 3. Ishga Tushirish
+        initializeCards();
+        showMoreBtn.addEventListener('click', showNextCards);
+    });
+
+
+    // news
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Sozlamalar ---
+        const initialCardsToShow = 9; // Dastlab nechta card ko'rinib tursin
+        const cardsPerClick = 6;       // Har bosilganda nechta card qo'shilsin
+        // -------------------
+
+        const showMoreBtn = document.getElementById('showMoreBtn');
+        const allCards = document.querySelectorAll('#news-container .news-item');
+        let currentShownCount = 0; // Hozirda ko'rinib turgan cardlar soni
+
+        // 1. Dastlabki Holatni Sozlash (Init Function)
+        function initializeCards() {
+            // Agar umuman card bo'lmasa, funksiyadan chiqamiz
+            if (allCards.length <= initialCardsToShow) {
+                showMoreBtn.style.display = 'none';
+                return;
+            }
+            
+            // 1a. Barcha cardlarni yashirish
+            allCards.forEach(card => {
+                card.classList.add('hidden');
+            });
+            
+            // 1b. Dastlabki ko'rinishi kerak bo'lgan cardlarni ochish
+            for (let i = 0; i < allCards.length && i < initialCardsToShow; i++) {
+                allCards[i].classList.remove('hidden');
+                currentShownCount++;
+            }
+            
+            // 1c. Agar barcha cardlar ko'rinib turgan bo'lsa, tugmani yashirish
+            if (currentShownCount >= allCards.length) {
+                showMoreBtn.style.display = 'none';
+            }
+        }
+        
+        // 2. "Ko'proq Ko'rsatish" Funksiyasi
+        function showNextCards(e) {
+            e.preventDefault();
+
+            const totalCards = allCards.length;
+            const nextCardsStart = currentShownCount; // Keyingi cardlar boshlanadigan indeks
+            const nextCardsEnd = Math.min(nextCardsStart + cardsPerClick, totalCards);
+            
+            // Cardlarni ko'rsatish
+            for (let i = nextCardsStart; i < nextCardsEnd; i++) {
+                allCards[i].classList.remove('hidden');
+                currentShownCount++;
+            }
+            
+            // Barcha cardlar ko'rsatilgan bo'lsa, tugmani yashirish
+            if (currentShownCount >= totalCards) {
+                showMoreBtn.style.display = 'none';
+            }
+        }
+
+        // 3. Ishga Tushirish
+        initializeCards();
+        showMoreBtn.addEventListener('click', showNextCards);
+    });
+
+
+
+// Poster muammosi
+
+
+ document.addEventListener('DOMContentLoaded', () => {
+    const videoLink = document.getElementById('youtube-link');
+    const videoPosterImg = document.getElementById('video-poster-img');
+
+    if (!videoLink || !videoPosterImg) return;
+
+});
