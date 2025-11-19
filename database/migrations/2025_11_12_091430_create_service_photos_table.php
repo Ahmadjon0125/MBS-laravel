@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('service_id') 
           ->constrained('service') // qaysi jadvalga bog'lanishi
           ->onDelete('cascade');
-            $table->string('photo');
+            $table->string('photos');
             $table->timestamps();
         });
     }

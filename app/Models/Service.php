@@ -20,6 +20,11 @@ class Service extends Model
             return $value ?: Str::slug($attributes['title'] ?? '');
         });
     }
+
+      public function getRouteKeyName()
+    {
+        return 'slug';
+    }
         
     public function service_photos(): HasMany
     {

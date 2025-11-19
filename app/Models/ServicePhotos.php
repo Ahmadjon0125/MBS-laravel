@@ -8,7 +8,7 @@ use App\Models\Service;
 class ServicePhotos extends Model
 {
    protected $table = 'service_photos';
-    protected $fillable= ['photo'];
+    protected $fillable= ['photos'];
 
 
     public function service(): BelongsTo

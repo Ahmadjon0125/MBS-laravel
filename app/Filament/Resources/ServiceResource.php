@@ -49,7 +49,7 @@ class ServiceResource extends Resource
                 Repeater::make('photos')  
                 ->relationship('service_photos') // <— MUHIM!
                 ->schema([
-                    FileUpload::make('image')
+                    FileUpload::make('photos')
                         ->image()
                         ->required()
                         ->disk('public')
