@@ -124,7 +124,8 @@
                 </div>
               </div>
             </div>
-
+            {! $product->list !}
+<!-- 
             <ul>
               <li class="flex items-center">
                 <span class="w-[3px] h-[3px] bg-[#004B8B] rounded mr-1"></span>
@@ -160,7 +161,7 @@
                 Шкафы, кресла и стеллажи для хранения архивов и документов.
                 </p>
               </li>
-            </ul>
+            </ul> -->
 
             <div class="text-center mt-[25px] md:mt-[51px]">
               <a

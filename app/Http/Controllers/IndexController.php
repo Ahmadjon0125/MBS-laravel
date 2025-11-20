@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\About;
 use App\Models\Company;
+use App\Models\Partner;
 use App\Models\Service;
 use App\Models\Slider;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ class IndexController extends Controller
       $abouts = About::first();
       $sliders = Slider::all();
       $services = Service::all();
-    return view('front.index', compact('companys', 'abouts', 'sliders', 'services'));
+      $partners = Partner::all();
+    return view('front.index', compact('companys', 'abouts', 'sliders', 'services', 'partners'));
    }
 }

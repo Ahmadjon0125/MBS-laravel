@@ -29,10 +29,10 @@ class ServiceResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('text')
+                Forms\Components\Textarea::make('text')
                     ->required()
                     ,
-                Forms\Components\TextInput::make('text2')
+                Forms\Components\Textarea::make('text2')
                     ->required()
                     ,
                 Forms\Components\TextInput::make('slug')
@@ -53,6 +53,11 @@ class ServiceResource extends Resource
                         ->image()
                         ->required()
                         ->disk('public')
+                        ->deleteUploadedFileUsing(function($file, $record){
+                        if($record && $record->bgImage){
+                            Storage::disk('public')->delete($record->bgImage);
+                        }
+                    })
                 ])
                 ->columns(1)
                 ->minItems(1)

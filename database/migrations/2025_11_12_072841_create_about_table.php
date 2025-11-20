@@ -15,9 +15,9 @@ return new class extends Migration
         Schema::create('about', function (Blueprint $table) {
             $table->id();
             $table->string('img');
-            $table->string('text');
+            $table->longText('text');
             $table->string('link');
-            $table->string('shortText');
+            $table->longText('shortText');
             $table->string('poster');
             $table->timestamps();
         });

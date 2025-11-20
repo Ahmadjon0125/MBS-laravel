@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\ServicePhotos;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -10,9 +11,9 @@ use Illuminate\Support\Str;
 class Service extends Model
 {
     protected $table  = 'service';
-        protected $fillable= ['title', 'text', 'text2', 'slug', 'bgImage'];
+    protected $fillable = ['title', 'text', 'text2', 'slug', 'bgImage'];
 
-          protected function slug(): Attribute
+    protected function slug(): Attribute
     {
         return Attribute::set(function ($value, $attributes) {
             // Agar slug kelgan bo‘lsa — shu qolsin
@@ -21,11 +22,11 @@ class Service extends Model
         });
     }
 
-      public function getRouteKeyName()
+    public function getRouteKeyName()
     {
         return 'slug';
     }
-        
+
     public function service_photos(): HasMany
     {
         return $this->hasMany(ServicePhotos::class);

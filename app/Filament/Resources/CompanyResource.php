@@ -36,7 +36,7 @@ class CompanyResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('text')
+                Forms\Components\Textarea::make('text')
                     ->required()
                     ->maxLength(255),
             ]);

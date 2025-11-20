@@ -9,8 +9,18 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServiceInController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
 
-Route::get('/', [IndexController::class, 'home']);
+// Tilni almashtirish
+Route::get('/set-lang/{lang}', function ($lang) {
+    session(['locale' => $lang]);
+    App::setLocale($lang);
+    return back();
+})->name('set.lang');
+
+
+// Sahifalar
+Route::get('/', [IndexController::class, 'home'])->name('home.page');
 
 Route::get('/about', [AboutController::class, 'about'])->name('about.page');
 Route::get('/service', [ServiceController::class, 'service'])->name('service.page');

@@ -75,7 +75,7 @@
               <p
                 class="text-[#474747] leading-relaxed mb-[20px] lg:mb-[24px] xl:mb-[31px] font-[500] text-[14px] lg:text-[16px] xl:text-[18px]"
               >
-                 {{ $abouts -> text}}  {{ $abouts -> text}}  {{ $abouts -> text}}
+        {{ Str::limit($abouts->text, 750) }}
               </p>
 
               <a
@@ -114,7 +114,7 @@
               
          
             <a
-              href="/serviseIn.html"
+                href="{{route('serviceIn.page', $service -> slug)}}"
               style="
                 background: url('{{asset('storage/' . $service -> bgImage)}}') no-repeat center / cover;
               "
@@ -239,37 +239,14 @@
 
               <div #swiperRef="" class="swiper mySwiper2">
                 <div class="swiper-wrapper">
+                  @foreach ( $partners as $partner)
+                    
                   <div class="swiper-slide slides2">
-                    <img src="./img/brend1.png" alt="" />
+                    <img src="{{asset('storage/' . $partner->img)}}" alt="" />
                   </div>
-                  <div class="swiper-slide slides2">
-                    <img src="./img/brend2.png" alt="" />
-                  </div>
-                  <div class="swiper-slide slides2">
-                    <img src="./img/brend3.png" alt="" />
-                  </div>
-                  <div class="swiper-slide slides2">
-                    <img src="./img/brend4.png" alt="" />
-                  </div>
-                  <div class="swiper-slide slides2">
-                    <img src="./img/brend5.png" alt="" />
-                  </div>
-                  <div class="swiper-slide slides2">
-                    <img src="./img/brend1.png" alt="" />
-                  </div>
-
-                  <div class="swiper-slide slides2">
-                    <img src="./img/brend2.png" alt="" />
-                  </div>
-                  <div class="swiper-slide slides2">
-                    <img src="./img/brend3.png" alt="" />
-                  </div>
-                  <div class="swiper-slide slides2">
-                    <img src="./img/brend4.png" alt="" />
-                  </div>
-                  <div class="swiper-slide slides2">
-                    <img src="./img/brend5.png" alt="" />
-                  </div>
+                  
+                  @endforeach
+               
                 </div>
                 <div class="swiper-pagination pag2"></div>
               </div>

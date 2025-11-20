@@ -2,13 +2,14 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SliderResource\Pages;
-use App\Filament\Resources\SliderResource\RelationManagers;
-use App\Models\Slider;
+use App\Filament\Resources\ProductResource\Pages;
+use App\Filament\Resources\ProductResource\RelationManagers;
+use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\CodeEditor;
 use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -17,9 +18,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Storage;
 
-class SliderResource extends Resource
+class ProductResource extends Resource
 {
-    protected static ?string $model = Slider::class;
+    protected static ?string $model = Product::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -27,20 +28,33 @@ class SliderResource extends Resource
     {
         return $form
             ->schema([
-                FileUpload::make('bgImg')
-                ->image()
-                ->disk('public')
-                ->deleteUploadedFileUsing(function($file, $record){
-                    if($record && $record -> bgImg){
-                        Storage::disk('public')->delete($record->bgImg);
-                    }
-                })
-                ,
-               TextInput::make('title')
+                Forms\Components\TextInput::make('title')
                     ->required(),
-                Textarea::make('text')
+                Forms\Components\Textarea::make('text')
+                ->rows('10')
                     ->required(),
-               
+                Textarea::make('list')
+                    ->required()
+                    ->rows('10'),
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->maxLength(255),
+                Repeater::make('photo')  
+                ->relationship('product_photos') // <— MUHIM!
+                ->schema([
+                    FileUpload::make('photo')
+                        ->image()
+                        ->required()
+                        ->disk('public')
+                        ->deleteUploadedFileUsing(function($file, $record){
+                        if($record && $record->bgImage){
+                            Storage::disk('public')->delete($record->bgImage);
+                        }
+                    })
+                ])
+                ->columns(1)
+                ->minItems(1)
+                ->addActionLabel('Rasm qo‘shish'),
             ]);
     }
 
@@ -48,11 +62,13 @@ class SliderResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('bgImg')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('text')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('list')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -86,9 +102,9 @@ class SliderResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSliders::route('/'),
-            'create' => Pages\CreateSlider::route('/create'),
-            'edit' => Pages\EditSlider::route('/{record}/edit'),
+            'index' => Pages\ListProducts::route('/'),
+            'create' => Pages\CreateProduct::route('/create'),
+            'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
     }
 }

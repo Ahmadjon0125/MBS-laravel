@@ -40,12 +40,11 @@ class AboutResource extends Resource
                             Storage::disk('public')->delete($record->img);
                         }
                     }),
-                Forms\Components\TextInput::make('text')
+                Forms\Components\Textarea::make('text')
                     ->required(),
                 Forms\Components\TextInput::make('link')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('shortText')
+                    ->required(),
+                Forms\Components\Textarea::make('shortText')
                     ->required()
                     ->maxLength(255),
                 FileUpload::make('poster')
