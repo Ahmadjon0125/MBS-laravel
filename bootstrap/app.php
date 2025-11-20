@@ -13,6 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         //
         // $middleware->append(\App\Http\Middleware\SetLocale::class);
+        // webga o'raldi
         $middleware->web(append: [
             \App\Http\Middleware\SetLocale::class,
         ]);
