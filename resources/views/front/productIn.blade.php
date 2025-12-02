@@ -130,15 +130,17 @@
           Make a request</span>
         </h2>
 
-        <form class="modalForm">
-          <input type="text" placeholder="Phone number" />
-          <input type="email" placeholder="Email" />
-          <textarea placeholder="Comment"></textarea>
+        <form class="modalForm" method="POST" action="{{ route('form.page') }}">
+          @csrf
+          <input type="text" name="phone" placeholder="Phone number" />
+          <input type="email" name="email" placeholder="Email" />
+          <textarea placeholder="Comment" name="comment"></textarea>
 
           <button type="submit" class="sendBtn">Send</button>
         </form>
       </div>
     </div>
+
 
 @endsection
 

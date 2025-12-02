@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\NewsInController;
@@ -35,3 +36,5 @@ Route::get('/service/{slug}', [ServiceInController::class, 'serviceIn'])->name('
 Route::get('/productIn/{slug}', [ProductInController::class, 'productIn'])->name('productIn.page');
 Route::get('/portfolioIn/{slug}', [PortfolioInController::class, 'portfolioIn'])->name('portfolioIn.page');
 Route::get('/newsIn/{slug}', [NewsInController::class, 'newsIn'])->name('newsIn.page');
+Route::post('/form', [FormController::class, 'store'])->name('form.page');
+
