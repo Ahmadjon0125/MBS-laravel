@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use AmidEsfahani\FilamentTinyEditor\TinyEditor;
 use App\Filament\Resources\ServiceResource\Pages;
 use App\Filament\Resources\ServiceResource\RelationManagers;
 use App\Models\Service;
@@ -26,42 +27,47 @@ class ServiceResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
+                Forms\Components\TextInput::make('title_uz')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('text')
+                Forms\Components\TextInput::make('title_ru')
                     ->required()
-                    ,
-                Forms\Components\Textarea::make('text2')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('title_en')
                     ->required()
-                    ,
+                    ->maxLength(255),
+                TinyEditor::make('text_uz')
+                    ->required()
+                    ->columnSpanFull(),
+                TinyEditor::make('text_ru')
+                    ->required()
+                    ->columnSpanFull(),
+                TinyEditor::make('text_en')
+                    ->required()
+                    ->columnSpanFull(),
+                TinyEditor::make('text2_uz')
+                    ->required()
+                    ->columnSpanFull(),
+                TinyEditor::make('text2_ru')
+                    ->required()
+                    ->columnSpanFull(),
+                TinyEditor::make('text2_en')
+                    ->required()
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('slug')
                     ->maxLength(255),
                 FileUpload::make('bgImage')
                     ->required()
+                    ->downloadable()
                     ->image()
-                    ->disk('public')
-                    ->deleteUploadedFileUsing(function($file, $record){
-                        if($record && $record->bgImage){
-                            Storage::disk('public')->delete($record->bgImage);
-                        }
-                    }),
-                Repeater::make('photos')  
-                ->relationship('service_photos') // <— MUHIM!
-                ->schema([
-                    FileUpload::make('photos')
-                        ->image()
-                        ->required()
-                        ->disk('public')
-                        ->deleteUploadedFileUsing(function($file, $record){
-                        if($record && $record->bgImage){
-                            Storage::disk('public')->delete($record->bgImage);
-                        }
-                    })
-                ])
-                ->columns(1)
-                ->minItems(1)
-                ->addActionLabel('Rasm qo‘shish'),
+                    ->disk('public'),
+                FileUpload::make('photos')
+                     ->label('Images')
+                     ->multiple()
+                     ->image()
+                     ->reorderable()
+                     ->imagePreviewHeight('150')
+                     ->columnSpanfull()               
             ]);
     }
 
@@ -69,11 +75,11 @@ class ServiceResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
+                Tables\Columns\TextColumn::make('title_uz')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('text')
+                Tables\Columns\TextColumn::make('title_ru')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('text2')
+                Tables\Columns\TextColumn::make('title_en')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),

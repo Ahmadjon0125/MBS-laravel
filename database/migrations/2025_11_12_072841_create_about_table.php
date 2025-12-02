@@ -15,9 +15,13 @@ return new class extends Migration
         Schema::create('about', function (Blueprint $table) {
             $table->id();
             $table->string('img');
-            $table->longText('text');
+            $table->longText('text_uz');
+            $table->longText('text_ru');
+            $table->longText('text_en');
+            $table->longText('shortText_uz');
+            $table->longText('shortText_ru');
+            $table->longText('shortText_en');
             $table->string('link');
-            $table->longText('shortText');
             $table->string('poster');
             $table->timestamps();
         });

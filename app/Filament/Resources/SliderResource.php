@@ -7,8 +7,6 @@ use App\Filament\Resources\SliderResource\RelationManagers;
 use App\Models\Slider;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -28,19 +26,29 @@ class SliderResource extends Resource
         return $form
             ->schema([
                 FileUpload::make('bgImg')
-                ->image()
-                ->disk('public')
-                ->deleteUploadedFileUsing(function($file, $record){
-                    if($record && $record -> bgImg){
-                        Storage::disk('public')->delete($record->bgImg);
-                    }
-                })
-                ,
-               TextInput::make('title')
+                    ->required()
+                    ->image()
+                    ->disk('public')
+                    ->deleteUploadedFileUsing(function($file, $record){
+                        if($record && $record->bgImg){
+                            Storage::disk('public')->delete($record->bgImg);
+                        }
+                    }),
+                Forms\Components\TextInput::make('title_uz')
                     ->required(),
-                Textarea::make('text')
+                Forms\Components\TextInput::make('title_ru')
                     ->required(),
-               
+                Forms\Components\TextInput::make('title_en')
+                    ->required(),
+                Forms\Components\Textarea::make('text_uz')
+                    ->required()
+                    ->columnSpanFull(),
+                Forms\Components\Textarea::make('text_ru')
+                    ->required()
+                    ->columnSpanFull(),
+                Forms\Components\Textarea::make('text_en')
+                    ->required()
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -50,9 +58,11 @@ class SliderResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('bgImg')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('title')
+                Tables\Columns\TextColumn::make('title_uz')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('text')
+                Tables\Columns\TextColumn::make('title_ru')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('title_en')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

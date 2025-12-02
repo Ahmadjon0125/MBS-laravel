@@ -25,20 +25,33 @@ class CompanyResource extends Resource
     {
         return $form
             ->schema([
-                 FileUpload::make('icon')
+                FileUpload::make('icon')
+                    ->required()
                     ->image()
                     ->disk('public')
-                    ->deleteUploadedFileUsing(function ($file, $record) {
-                        if ($record && $record->icon) {
+                    ->deleteUploadedFileUsing(function($file, $record){
+                        if($record && $record -> icon) {
                             Storage::disk('public')->delete($record->icon);
                         }
                     }),
-                Forms\Components\TextInput::make('title')
+                Forms\Components\TextInput::make('title_uz')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('text')
+                Forms\Components\TextInput::make('title_ru')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('title_en')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\Textarea::make('text_uz')
+                    ->required()
+                    ->columnSpanFull(),
+                Forms\Components\Textarea::make('text_ru')
+                    ->required()
+                    ->columnSpanFull(),
+                Forms\Components\Textarea::make('text_en')
+                    ->required()
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -48,9 +61,11 @@ class CompanyResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('icon')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('title')
+                Tables\Columns\TextColumn::make('title_uz')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('text')
+                Tables\Columns\TextColumn::make('title_ru')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('title_en')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

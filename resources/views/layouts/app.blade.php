@@ -1,3 +1,10 @@
+@php
+ 
+$grouplink1  = \App\Models\Svyaz::first();
+$socials  = \App\Models\Social::first();
+@endphp
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,18 +46,18 @@
         <nav
           class="flex items-center ml-[25px] md:ml-[40px] lg:ml-[60px] xl:ml-[80px] 2xl:ml-[80px] flex-grow">
           <ul class="hidden lg:flex justify-between navList w-full">
-            <li><a href="{{ route('about.page') }}">О компании </a></li>
-            <li><a href="{{route('service.page')}}">Услуги</a></li>
-            <li><a href="{{ route('product.page')}}">Продукция </a></li>
-            <li><a href="{{route('portfolio.page')}}">Портфолио</a></li>
+            <li><a href="{{ route('about.page') }}">{{ __('app.about') }} </a></li>
+            <li><a href="{{route('service.page')}}">{{ __('app.service') }}</a></li>
+            <li><a href="{{ route('product.page')}}">{{ __('app.product') }} </a></li>
+            <li><a href="{{route('portfolio.page')}}">{{ __('app.portfolio') }}</a></li>
             <li><a href="{{route('news.page')}}">{{ __('app.news') }}</a></li>
-            <li><a href="{{route('contact.page')}}">Контакты</a></li>
+            <li><a href="{{route('contact.page')}}">{{ __('app.contact') }}</a></li>
           </ul>
           <div
             class="hidden lg:block lg:mx-[20px] xl:mx-[28px] 2xl:mx-[38px] px-1 sm:px-2 md:px-4 xl:px-6 2xl:px-10 border-x-[#004B8B] lg:border-x-1">
             <a
               class="text-[#474747] font-[600] whitespace-nowrap"
-              href="tel:+998935054505">+998 93 505 45 05</a>
+              href="tel:{{ $info -> phone }}">{{ $info -> phone }}</a>
           </div>
           <div class="ml-auto lang-dropdown">
             <button class="lang-btn" id="langBtn">
@@ -82,16 +89,16 @@
     <div class="mobile-nav" id="mobileNav">
       <div class="mobile-nav-content">
         <ul class="navList flex lg:hidden">
-          <li><a href="{{ route('about.page') }}">О компании </a></li>
-          <li><a href="{{route('service.page')}}">Услуги</a></li>
-          <li><a href="{{ route('product.page')}}">Продукция </a></li>
-          <li><a href="{{route('portfolio.page')}}">Портфолио</a></li>
-          <li><a href="{{route('news.page')}}">Новости</a></li>
-          <li><a href="{{route('contact.page')}}">Контакты</a></li>
+             <li><a href="{{ route('about.page') }}">{{ __('app.about') }} </a></li>
+            <li><a href="{{route('service.page')}}">{{ __('app.service') }}</a></li>
+            <li><a href="{{ route('product.page')}}">{{ __('app.product') }} </a></li>
+            <li><a href="{{route('portfolio.page')}}">{{ __('app.portfolio') }}</a></li>
+            <li><a href="{{route('news.page')}}">{{ __('app.news') }}</a></li>
+            <li><a href="{{route('contact.page')}}">{{ __('app.contact') }}</a></li>
         </ul>
 
-        <a class="mobile-phone flex lg:hidden" href="tel:+998935054505">
-          +998 93 505 45 05
+        <a class="mobile-phone flex lg:hidden" href="tel:{{ $info -> phone }}">
+          {{ $info -> phone }}
         </a>
       </div>
     </div>
@@ -112,7 +119,7 @@
         <div class="flex flex-col items-center justify-center">
           <h2
             class="text-[24px] sm:text-[30px] lg:text-[40px] font-[700] text-[#004B8B] mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center uppercase">
-            Свяжитесь с нами в Telegram
+          {{ __('app.svyaz')}}
           </h2>
           <div
             class="w-[60px] h-1 lg:h-[8px] bg-[#004B8B] mb-[12px] sm:mb-[18px] lg:mb-[28px] mx-auto"></div>
@@ -122,10 +129,10 @@
             class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 max-w-[840px] w-full mx-auto">
             <!-- Button 1 -->
             <a
-              href="/"
+              href="{{ $grouplink1->groupLink }}"
               class="group flex whitespace-nowrap items-center justify-center px-6 md:px-[56px] py-4 md:py-[16px] bg-[#004B8B] text-white font-[600] text-[12px] md:text-[14px] uppercase hover:bg-[#003461] transition-colors">
               <span class="flex items-center">
-                ПЕРЕЙТИ В ГРУППУ
+                {{ __('app.svyaz1') }}
                 <svg
                   class="w-5 h-5 ml-1 transform group-hover:translate-x-1 transition-transform"
                   fill="none"
@@ -142,10 +149,10 @@
 
             <!-- Button 2 -->
             <a
-              href="/"
+              href="{{ $grouplink1 ->adminLink }}"
               class="group flex whitespace-nowrap items-center justify-center px-6 md:px-[56px] py-4 md:py-[16px] bg-[#004B8B] text-white font-[600] text-[12px] md:text-[14px] uppercase hover:bg-[#003461] transition-colors">
               <span class="flex items-center">
-                СВЯЗАТЬСЯ С АДМИНИСТРАТОРОМ
+              {{__('app.svyaz2')}}
                 <svg
                   class="w-5 h-5 ml-1 transform group-hover:translate-x-1 transition-transform"
                   fill="none"
@@ -175,22 +182,22 @@
             <nav class="space-y-2 sm:space-y-3">
               <a
                 href="{{ route('about.page') }}"
-                class="block text-white opacity-60 hover:opacity-100 font-[500] text-[16px]">О компании</a>
+                class="block text-white opacity-60 hover:opacity-100 font-[500] text-[16px]">{{ __('app.about') }}</a>
               <a
                 href="{{route('service.page')}}"
-                class="block text-white opacity-60 hover:opacity-100 font-[500] text-[16px]">Услуги</a>
+                class="block text-white opacity-60 hover:opacity-100 font-[500] text-[16px]">{{ __('app.service') }}</a>
               <a
                 href="{{ route('product.page')}}"
-                class="block text-white opacity-60 hover:opacity-100 font-[500] text-[16px]">Продукция</a>
+                class="block text-white opacity-60 hover:opacity-100 font-[500] text-[16px]">{{ __('app.product') }}</a>
               <a
                 href="{{route('portfolio.page')}}"
-                class="block text-white opacity-60 hover:opacity-100 font-[500] text-[16px]">Портфолио</a>
+                class="block text-white opacity-60 hover:opacity-100 font-[500] text-[16px]">{{ __('app.portfolio') }}</a>
               <a
                 href="{{route('news.page')}}"
-                class="block text-white opacity-60 hover:opacity-100 font-[500] text-[16px]">Новости</a>
+                class="block text-white opacity-60 hover:opacity-100 font-[500] text-[16px]">{{ __('app.news') }}</a>
               <a
                 href="{{route('contact.page')}}"
-                class="block text-white opacity-60 hover:opacity-100 font-[500] text-[16px]">Контакты</a>
+                class="block text-white opacity-60 hover:opacity-100 font-[500] text-[16px]">{{ __('app.contact') }}</a>
             </nav>
 
             <!-- Center - Logo & Social -->
@@ -204,7 +211,7 @@
               </a>
               <div class="flex gap-[20px] md:gap-[30px]">
                 <a
-                  href="#"
+                  href="{{ $socials ->instagram }}"
                   class="flex items-center justify-center icon-wrapper">
                   <svg
                     width="34"
@@ -232,7 +239,7 @@
                   </svg>
                 </a>
                 <a
-                  href="#"
+                  href="{{ $socials ->facebook }}"
                   class="flex items-center justify-center icon-wrapper">
                   <svg
                     width="34"
@@ -251,7 +258,7 @@
                   </svg>
                 </a>
                 <a
-                  href="#"
+                  href="{{ $socials ->telegram }}"
                   class="flex items-center justify-center icon-wrapper">
                   <svg
                     width="34"
@@ -274,30 +281,29 @@
             </div>
 
             <!-- Right - Contact -->
-            <div class="space-y-4">
+            <div class="space-y-4 max-w-[400px]">
               <div>
                 <p class="text-white opacity-60 text-[12px] font-[500]">
                   ТЕЛЕФОН
                 </p>
                 <a
-                  href="tel:+998935054505"
-                  class="text-white text-[16px] font-[500]">+99 893 505 45 05</a>
+                  href="tel:{{ $info -> phone }}"
+                  class="text-white text-[16px] font-[500]">  {{ $info -> phone }}</a>
               </div>
               <div>
                 <p class="text-white opacity-60 text-[12px] font-[500]">
                   ЭЛЕКТРОННАЯ ПОЧТА
                 </p>
                 <a
-                  href="mailto:megabest@info.com"
-                  class="text-white text-[16px] font-[500]">megabest@info.com</a>
+                  href="mailto:{{ $info -> email }}"
+                  class="text-white text-[16px] font-[500]">{{ $info -> email }}</a>
               </div>
               <div>
                 <p class="text-white opacity-60 text-[12px] font-[500]">
                   АДРЕС
                 </p>
                 <p class="text-white text-[16px] font-[500]">
-                  Узбекистан, г. Ташкент<br />
-                  Ул. Темур Малик, дом 17а
+                {{$info -> address}}
                 </p>
               </div>
             </div>
@@ -305,8 +311,8 @@
           <!-- Bottom -->
           <div
             class="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-400 relative">
-            <p class="opacity-100">«Mega Best Standart» Все права защищены</p>
-            <p>© Copyright 2025 - Web developed by SOS Group</p>
+            <p class="opacity-100">{{ __('app.allRight') }}</p>
+            <p>{{ __('app.developed') }}</p>
           </div>
         </div>
       </div>

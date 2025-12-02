@@ -3,7 +3,7 @@
   @section('content')
 
             <!-- 1-section -->
-       <x-hero :title="'Контакты'"  :breadcrumbs="['Главная' => url('/'), 'Контакты' => url('/contact')]" />
+       <x-hero :title="__('app.contact')"  :breadcrumbs="[__('app.home') => url('/'), __('app.contact') => url('/contact')]" />
 
       <!-- 2-section -->
       <section
@@ -22,7 +22,7 @@
                 Телефон
               </h5>
               <p class="font-[600] text-[20px] text-[#474747]">
-                +99 893 505 45 05
+                {{ $info -> phone }}
               </p>
             </div>
 
@@ -35,7 +35,7 @@
                 Электронная почта
               </h5>
               <p class="font-[600] text-[20px] text-[#474747]">
-                megabest@info.com
+                {{ $info -> email }}
               </p>
             </div>
 
@@ -48,7 +48,7 @@
                 Адрес
               </h5>
               <p class="font-[600] text-[20px] text-[#474747]">
-                Узбекистан, г. ТашкентУл. Темур Малик, дом 17а
+                {{ $info -> address }}
               </p>
             </div>
           </div>
@@ -62,7 +62,7 @@
             <h2
               class="text-[24px] sm:text-[30px] lg:text-[40px] font-[700] text-[#004B8B] mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center uppercase"
             >
-              Мы на карте
+              {{ __('app.map') }}
             </h2>
             <div
               class="w-[60px] h-1 lg:h-[8px] bg-[#004B8B] mb-[15px] sm:mb-[35px] lg:mb-[50px] mx-auto"
@@ -72,7 +72,7 @@
         <div class="h-[300px] sm:h-[500px] lg:h-[700px]">
 
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d374.38834214495137!2d69.35275546871615!3d41.35003366750449!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38aef52b68c4277b%3A0x704a52cfbe784a9!2zU09TIC0g0YDQsNC30YDQsNCx0L7RgtC60LAg0YHQsNC50YLQvtCyINCyINGC0LDRiNC60LXQvdGC0LUsINGB0L7Qt9C00LDQvdC40LUg0YHQsNC50YLQvtCyINCyINGC0LDRiNC60LXQvdGC0LUsIHNlbyDQsiDRgtCw0YjQutC10L3RgtC1LCDRgdC-0LfQtNCw0L3QuNC1INGB0LDQudGC0L7QsiDQsiDRgtCw0YjQutC10L3RgtC1!5e0!3m2!1sen!2s!4v1762167838276!5m2!1sen!2s"
+            src="{{ $map ->map }}"
             width="100%"
             height="100%"
             style="border: 0"

@@ -10,25 +10,25 @@ use Illuminate\Support\Str;
 class Product extends Model
 {
     protected $table ='product';
-    protected $fillable = ['title', 'text', 'list', 'link', 'slug'];
+    protected $fillable = ['title_uz','title_ru','title_en', 'text_uz','text_ru','text_en', 'list_items_uz','list_items_ru','list_items_en', 'bgImage', 'photos', 'slug'];
 
-      protected function slug(): Attribute
+    protected $casts = [
+         'photos' => 'array', 
+         'list_items_uz' => 'array', 
+         'list_items_ru' => 'array', 
+         'list_items_en' => 'array', 
+        ];
+
+    protected function slug(): Attribute
     {
         return Attribute::set(function ($value, $attributes) {
-            // Agar slug kelgan bo‘lsa — shu qolsin
-            // Agar kelmagan bo‘lsa title asosida avtomatik yaratiladi
             return $value ?: Str::slug($attributes['title'] ?? '');
         });
     }
 
     public function getRouteKeyName()
-   {
-       return 'slug';
-   }
-
-    public function product_photos(): HasMany
     {
-        return $this->hasMany(ProductPhotos::class);
+        return 'slug';
     }
 
 }

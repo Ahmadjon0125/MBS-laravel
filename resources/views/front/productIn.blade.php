@@ -1,43 +1,14 @@
 @extends('layouts.app')
 
+@php
+  $locale = App::getLocale();
+@endphp
   @section('content')
 
-      <!-- 1-section -->
-      <section class="pt-[85px] lg:pt-[115px]">
-        <div
-          class="relative"
-          style="background: url('./img/holderBg.jpg') center / cover no-repeat"
-        >
-          <div class="absolute opacity-60 inset-0 z-0 bg-[#022D52]"></div>
-          <div class="container">
-            <div
-              class="text-white flex flex-col items-center justify-center relative h-[150px] sm:h-[180px] lg:h-[228px]"
-            >
-              <h1
-                class="font-[700] text-[25px] md:text-[40px] text-white uppercase mb-[3px]"
-              >
-                Интерьерная и офисная мебель
-              </h1>
-              <div class="flex flex-wrap items-center">
-                <a href="" class="font-[500] text-[16px] md:text-[18px]"
-                  >Главная</a
-                >
-                <p class="mx-1 md:mx-5 font-[700]">-</p>
-                <a href="" class="font-[500] text-[16px] md:text-[18px]"
-                  >Продукция</a
-                >
-                <p class="mx-1 md:mx-5 font-[700]">-</p>
-                <a href="" class="font-[500] text-[16px] md:text-[18px]"
-                  >Интерьерная и офисная мебель</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-            <!-- 1-section -->
-       <x-hero :title="'Интерьерная и офисная мебель'"  :breadcrumbs="['Главная' => url('/'), 'Продукция' => url('/news'), 'Интерьерная и офисная мебель' => url('/')]" />
+
+      <!-- 1-section -->
+       <x-hero :title="$product -> { 'title_' . $locale}"  :breadcrumbs="[__('app.home') => url('/'), __('app.product') => url('/news'), $product -> { 'title_' . $locale} => url('/')]" />
 
       <!-- 2-section -->
       <section
@@ -48,7 +19,7 @@
             <h2
               class="uppercase text-[24px] sm:text-[30px] lg:text-[40px] font-[700] text-[#004B8B] mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center md:text-start"
             >
-              Интерьерная и офисная мебель
+             {{ $product -> { 'title_' . $locale} }}
             </h2>
             <div
               class="hidden md:block w-[60px] h-1 lg:h-[8px] bg-[#004B8B] mb-[12px] sm:mb-[18px] lg:mb-[28px]"
@@ -56,40 +27,20 @@
             <p
               class="text-[#474747] text-[14px] lg:text-[16px] xl:text-[18px] font-[500] mt-[24px] md:mt-[48px] text-center md:text-start"
             >
-              ООО «MEGA BEST STANDART» — это современное производственное
-              предприятие, оснащённое передовыми технологиями в области
-              переработки металла и производства металлических конструкций.
-              <br /><br />
-              Деятельность компании охватывает широкий спектр направлений — от
-              продукции для учебных заведений до промышленных и строительных
-              объектов, а также изделий для интерьера.
+              {!! $product -> {'text_' . $locale} !!}
             </p>
 
             <div class="my-[25px] md:my-[48px]">
               <!-- Main Swiper -->
               <div class="swiper main-slider">
                 <div class="swiper-wrapper">
+                  @foreach ($product -> photos ?? [] as $photo)
+                    
+                
                   <div class="swiper-slide">
-                    <img src="./img/productIn1.jpg" />
+                    <img src="{{ asset('storage/' . $photo) }}" />
                   </div>
-                  <div class="swiper-slide">
-                    <img src="./img/productIn2.jpg" />
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="./img/productIn3.jpg" />
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="./img/productIn4.jpg" />
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="./img/productIn5.jpg" />
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="./img/productIn6.jpg" />
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="./img/productIn1.jpg" />
-                  </div>
+         @endforeach
                 </div>
 
                 <!-- Navigatsiya tugmalari -->
@@ -100,31 +51,21 @@
               <!-- Thumb Swiper -->
               <div class="swiper thumb-slider thumbSlider">
                 <div class="swiper-wrapper swiper-box">
+                  @foreach ($product -> photos ?? [] as $photo)
+                    
+                
                   <div class="swiper-slide">
-                    <img src="./img/productIn1.jpg" />
+                    <img src="{{ asset('storage/' . $photo) }}" />
                   </div>
-                  <div class="swiper-slide">
-                    <img src="./img/productIn2.jpg" />
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="./img/productIn3.jpg" />
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="./img/productIn4.jpg" />
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="./img/productIn5.jpg" />
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="./img/productIn6.jpg" />
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="./img/productIn1.jpg" />
-                  </div>
+         @endforeach
+
                 </div>
               </div>
             </div>
-            {! $product->list !}
+   
+            <div>
+              {!! $product -> {'list_items_' . $locale} !!}
+            </div>
 <!-- 
             <ul>
               <li class="flex items-center">
@@ -164,19 +105,40 @@
             </ul> -->
 
             <div class="text-center mt-[25px] md:mt-[51px]">
-              <a
-                href="#"
-                class="group inline-flex self-start justify-center items-center text-[14px] px-[10px] sm:px-[20px] lg:px-[33px] py-[8px] sm:py-[12px] lg:py-[21px] bg-[#004B8B] hover:bg-[#003C6F] text-white font-[600] transition duration-300"
+              <button
+                
+                class="openModal uppercase group inline-flex self-start justify-center items-center text-[14px] px-[10px] sm:px-[20px] lg:px-[33px] py-[8px] sm:py-[12px] lg:py-[21px] bg-[#004B8B] hover:bg-[#003C6F] text-white font-[600] transition duration-300"
               >
-                Оставить заявку
+                {{ __('app.req') }}
                 <img
-                  src="./img/qalam.svg"
+                  src="{{ asset('storage/images/qalam.svg') }}"
                   class="ml-[10px] group-hover:translate-x-1 group-hover:transition-transform"
                 />
-              </a>
+              </button>
             </div>
           </div>
         </div>
       </section>
 
+             <!-- Modal fon -->
+    <!-- Modal (bitta) -->
+    <div class="modalOverlay" id="modalOverlay">
+      <div class="modalBox">
+        <h2
+          class="text-center lg:text-start text-[#004B8B] font-[700] text-[25px] sm:text-[35px] lg:text-[50px] mb-[15px] sm:mb-[30px] lg:mb-[42px] leading-none"
+        >
+          Make a request</span>
+        </h2>
+
+        <form class="modalForm">
+          <input type="text" placeholder="Phone number" />
+          <input type="email" placeholder="Email" />
+          <textarea placeholder="Comment"></textarea>
+
+          <button type="submit" class="sendBtn">Send</button>
+        </form>
+      </div>
+    </div>
+
 @endsection
+

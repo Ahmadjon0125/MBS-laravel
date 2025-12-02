@@ -4,8 +4,11 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\NewsInController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\PortfolioInController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductInController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServiceInController;
 use Illuminate\Support\Facades\Route;
@@ -29,3 +32,6 @@ Route::get('/portfolio', [PortfolioController::class, 'portfolio'])->name('portf
 Route::get('/news', [NewsController::class, 'news'])->name('news.page');
 Route::get('/contact', [ContactController::class,'contact'])->name('contact.page');
 Route::get('/service/{slug}', [ServiceInController::class, 'serviceIn'])->name('serviceIn.page');
+Route::get('/productIn/{slug}', [ProductInController::class, 'productIn'])->name('productIn.page');
+Route::get('/portfolioIn/{slug}', [PortfolioInController::class, 'portfolioIn'])->name('portfolioIn.page');
+Route::get('/newsIn/{slug}', [NewsInController::class, 'newsIn'])->name('newsIn.page');

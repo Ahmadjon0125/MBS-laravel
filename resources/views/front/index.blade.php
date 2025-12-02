@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@php
+  $locale = App::getLocale();
+@endphp
+
   @section('content')
       <!-- 1-section -->
       <section class="pt-[85px] lg:pt-[115px]">
@@ -23,17 +27,17 @@
                   <h2
                     class="font-[700] text-[25px] sm:text-[40px] lg:text-[60px] uppercase text-white leading-none mb-[10px] sm:mb-[16px] lg:mb-[21px]"
                   >
-                    {{$slider -> title}}
+                    {{ $slider -> {'title_' . $locale} }}
                   </h2>
                   <p
                     class="font-[500] text-[14px] sm:text-[18px] lg:text-[22px] text-white mb-[15px] sm:mb-[25px] lg:mb-[33px]"
                   >
-                    {{$slider ->text}}
+                    {{ $slider -> {'text_' . $locale} }}
                   </p>
                   <a
-                    href=""
+                    href="{{ route('about.page') }}"
                     class="font-[600] text-[14px] uppercase text-[#004B8B] px-[12px] sm:px-[25px] lg:px-[36px] py-[10px] sm:py-[16px] lg:py-[21px] w-max bg-white"
-                    >Подробнее</a
+                    >{{ __('app.readMore') }}</a
                   >
                 </div>
               </div>
@@ -67,7 +71,7 @@
               <h2
                 class="text-[24px] sm:text-[30px] lg:text-[40px] font-[700] text-[#004B8B] mb-[4px] sm:mb-[8px] lg:mb-[14px]"
               >
-                О КОМПАНИИ
+              {{ $abouts -> {'title_' . $locale} }}
               </h2>
               <div
                 class="hidden md:block w-[60px] h-1 lg:h-[8px] bg-[#004B8B] mb-[12px] sm:mb-[18px] lg:mb-[28px]"
@@ -75,14 +79,14 @@
               <p
                 class="text-[#474747] leading-relaxed mb-[20px] lg:mb-[24px] xl:mb-[31px] font-[500] text-[14px] lg:text-[16px] xl:text-[18px]"
               >
-        {{ Str::limit($abouts->text, 750) }}
+        {{ Str::limit($abouts->{'text_' . $locale}, 750) }}
               </p>
 
               <a
-                href="#"
+                href="{{ route('about.page') }}"
                 class="group inline-flex self-start mx-auto md:mx-0 items-center text-[14px] px-[10px] sm:px-[20px] lg:px-[33px] py-[8px] sm:py-[12px] lg:py-[21px] bg-[#004B8B] hover:bg-[#003C6F] text-white font-[600] transition duration-300"
               >
-                ПОДРОБНЕЕ
+               {{ __('app.readMore') }}
                 <img
                   src="{{ asset('storage/images/podrobnee.svg')}}"
                   class="ml-[10px] group-hover:translate-x-1 group-hover:transition-transform pb-[1px]"
@@ -102,7 +106,7 @@
           <h2
             class="text-[24px] sm:text-[30px] lg:text-[40px] font-[700] text-[#004B8B] mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center uppercase"
           >
-            Услуги
+           {{ __('app.service') }}
           </h2>
           <div
             class="w-[60px] h-1 lg:h-[8px] bg-[#004B8B] mb-[12px] sm:mb-[18px] lg:mb-[28px] mx-auto"
@@ -125,7 +129,7 @@
               ></div>
               <div class="z-1">
                 <h3 class="md:text-[22px] font-bold uppercase mb-[16px]">
-                  {{$service -> title}}
+                  {{$service -> {'title_' . $locale} }}
                 </h3>
                 <div
                   class="w-[60px] h-[3px] md:h-[6px] bg-white mx-auto mb-[10px]"
@@ -133,7 +137,7 @@
                 <p
                   class="text-[16px] font-[500] leading-relaxed mb-[15px] md:mb-[24px]"
                 >
-                  {{Str::limit( $service-> text, 200)}}
+                  {!! Str::limit( $service-> {'text_' . $locale}, 200) !!}
                 </p>
                 <div
                   class="w-[30px] md:w-[50px] h-0 overflow-hidden  bg-white mx-auto mb-0 linkHoverInfo "
@@ -151,10 +155,10 @@
           </div>
           <div class="text-center mt-6 md:mt-[50px]">
             <a
-              href="#"
-              class="group inline-flex items-center gap-2 text-[#004B8B] hover:text-white border-2 border-[#004B8B] px-5 md:px-[34px] py-3 md:py-[21px] font-[600] text-[14px] hover:bg-[#004B8B] transition duration-300"
+              href="{{ route('service.page') }}"
+              class="uppercase group inline-flex items-center gap-2 text-[#004B8B] hover:text-white border-2 border-[#004B8B] px-5 md:px-[34px] py-3 md:py-[21px] font-[600] text-[14px] hover:bg-[#004B8B] transition duration-300"
             >
-              ВСЕ УСЛУГИ
+             {{ __('app.allService') }}
               <svg
                 class="w-[18px] h-[18px] text-inherit group-hover:translate-x-1 group-hover:transition-transform"
                 viewBox="0 0 9.09375 16.0078"
@@ -181,7 +185,7 @@
           <h2
             class="text-[24px] sm:text-[30px] lg:text-[40px] font-[700] text-[#004B8B] mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center uppercase"
           >
-            Преимущества компании
+            {{ __('app.advantage') }}
           </h2>
           <div
             class="w-[60px] h-1 lg:h-[8px] bg-[#004B8B] mb-[12px] sm:mb-[18px] lg:mb-[28px] mx-auto"
@@ -206,10 +210,10 @@
                   <h3
                     class="text-[#004B8B] font-bold uppercase text-[20px] mb-2"
                   >
-                    {{ $company -> title}}
+                    {{ $company -> {'title_' . $locale} }}
                   </h3>
                   <p class="text-[#474747] text-[16px] font-medium">
-                   {{ $company -> text}}
+                   {{ $company -> {'text_' . $locale} }}
                   </p>
                 </div>
 
@@ -227,7 +231,7 @@
           <h2
             class="text-[24px] sm:text-[30px] lg:text-[40px] font-[700] text-[#004B8B] mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center uppercase"
           >
-            Наши партнеры
+         {{ __('app.partner')}}
           </h2>
           <div
             class="w-[60px] h-1 lg:h-[8px] bg-[#004B8B] mb-[12px] sm:mb-[18px] lg:mb-[28px] mx-auto"

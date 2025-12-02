@@ -11,13 +11,13 @@ use Illuminate\Support\Str;
 class Service extends Model
 {
     protected $table  = 'service';
-    protected $fillable = ['title', 'text', 'text2', 'slug', 'bgImage'];
+    protected $fillable = ['title_uz','title_ru','title_en', 'text_uz','text_ru','text_en' , 'text2_uz','text2_ru','text2_en', 'photos', 'slug', 'bgImage'];
+
+    protected $casts = [ 'photos' => 'array' ];
 
     protected function slug(): Attribute
     {
         return Attribute::set(function ($value, $attributes) {
-            // Agar slug kelgan bo‘lsa — shu qolsin
-            // Agar kelmagan bo‘lsa title asosida avtomatik yaratiladi
             return $value ?: Str::slug($attributes['title'] ?? '');
         });
     }
@@ -27,8 +27,5 @@ class Service extends Model
         return 'slug';
     }
 
-    public function service_photos(): HasMany
-    {
-        return $this->hasMany(ServicePhotos::class);
-    }
+   
 }

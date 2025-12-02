@@ -2,21 +2,18 @@
 
 namespace App\Filament\Resources;
 
+use AmidEsfahani\FilamentTinyEditor\TinyEditor;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\CodeEditor;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Storage;
 
 class ProductResource extends Resource
 {
@@ -28,33 +25,47 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required(),
-                Forms\Components\Textarea::make('text')
-                ->rows('10')
-                    ->required(),
-                Textarea::make('list')
-                    ->required()
-                    ->rows('10'),
-                Forms\Components\TextInput::make('slug')
+                Forms\Components\TextInput::make('title_uz')
                     ->required()
                     ->maxLength(255),
-                Repeater::make('photo')  
-                ->relationship('product_photos') // <— MUHIM!
-                ->schema([
-                    FileUpload::make('photo')
-                        ->image()
-                        ->required()
-                        ->disk('public')
-                        ->deleteUploadedFileUsing(function($file, $record){
-                        if($record && $record->bgImage){
-                            Storage::disk('public')->delete($record->bgImage);
-                        }
-                    })
-                ])
-                ->columns(1)
-                ->minItems(1)
-                ->addActionLabel('Rasm qo‘shish'),
+                Forms\Components\TextInput::make('title_ru')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('title_en')
+                    ->required()
+                    ->maxLength(255),
+                TinyEditor::make('text_uz')
+                    ->required()
+                    ->columnSpanFull(),
+                TinyEditor::make('text_ru')
+                    ->required()
+                    ->columnSpanFull(),
+                TinyEditor::make('text_en')
+                    ->required()
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('slug')
+                    ->maxLength(255),
+                TinyEditor::make('list_items_uz')
+                    ->required()
+                    ->columnSpanFull(),
+                TinyEditor::make('list_items_ru')
+                    ->required()
+                    ->columnSpanFull(),
+                TinyEditor::make('list_items_en')
+                    ->required()
+                    ->columnSpanFull(),
+              FileUpload::make('bgImage')
+                    ->required()
+                    ->downloadable()
+                    ->image()
+                    ->disk('public'),
+               FileUpload::make('photos')
+                     ->label('Images')
+                     ->multiple()
+                     ->image()
+                     ->reorderable()
+                     ->imagePreviewHeight('150')
+                     ->columnSpanfull() 
             ]);
     }
 
@@ -62,13 +73,15 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
+                Tables\Columns\TextColumn::make('title_uz')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('text')
+                Tables\Columns\TextColumn::make('title_ru')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('list')
+                Tables\Columns\TextColumn::make('title_en')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('bgImage')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

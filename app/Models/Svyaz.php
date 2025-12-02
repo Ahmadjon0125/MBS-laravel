@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Svyaz extends Model
 {
-     protected $fillable = ['grouplink', 'adminLink'];
+     protected $table = 'svyaz';
+     protected $fillable = ['groupLink', 'adminLink'];
 }

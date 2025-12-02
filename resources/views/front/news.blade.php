@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
+@php
+  $locale = App::getLocale();
+@endphp
+
   @section('content')
 
     <!-- 1-section -->
-       <x-hero :title="'Новости'"  :breadcrumbs="['Главная' => url('/'), 'Новости' => url('/news')]" />
+       <x-hero :title="__('app.news')"  :breadcrumbs="[__('app.home') => url('/'), __('app.news') => url('/news')]" />
 
       <!-- 2-section -->
       <section class="py-[45px] md:py-[100px]">
@@ -12,14 +16,17 @@
           id="news-container"
             class="grid grid-cols-1 justify-center sm:grid-cols-2 lg:grid-cols-3 gap-[30px] justify-items-center"
           >
-            <a href="{{route('newsIn.page')}}" class="news-item max-w-[420px] bg-white shadow-sm newsHoverIn">
-              <img class="w-full" src="/img/oKompany.jpg" alt="" />
+          @foreach ( $news as $new)
+            
+     
+            <a href="{{route('newsIn.page', $new -> slug)}}" class="news-item max-w-[420px] bg-white shadow-sm newsHoverIn">
+              <img class="w-full" src="{{ asset('storage/' . $new -> img) }}" alt="" />
 
               <div class="p-5">
                 <h2
                   class="newsTitle text-[16px] sm:text-[18px] lg:text-[20px] font-[700] text-[#474747]  mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center md:text-start"
                 >
-                  Lorem ipsum dolor sit amet
+                  {{ $new -> {'title_' . $locale} }}
                 </h2>
                 <div
                   class="hidden md:block w-[60px] h-1 lg:h-[6px] bg-[#004B8B] mb-[12px] lg:mb-[14px]"
@@ -28,291 +35,17 @@
                 <p
                   class="text-[#004B8B] text-[14px] font-[600] mb-[15px] text-center md:text-start"
                 >
-                  30.09.2025
+               {{ date('d.m.Y', strtotime($new->newsDate)) }}
                 </p>
                 <p class="font-[500] text-[#474747] text-center md:text-start">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                 {!! Str::limit($new->{'text_' . $locale}, 150) !!}
                 </p>
               </div>
             </a>
 
-             <a href="newsIn.html" class="news-item max-w-[420px] bg-white shadow-sm newsHoverIn">
-              <img class="w-full" src="/img/oKompany.jpg" alt="" />
 
-              <div class="p-5">
-                <h2
-                  class="newsTitle text-[16px] sm:text-[18px] lg:text-[20px] font-[700] text-[#474747]  mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center md:text-start"
-                >
-                  Lorem ipsum dolor sit amet
-                </h2>
-                <div
-                  class="hidden md:block w-[60px] h-1 lg:h-[6px] bg-[#004B8B] mb-[12px] lg:mb-[14px]"
-                ></div>
+     @endforeach
 
-                <p
-                  class="text-[#004B8B] text-[14px] font-[600] mb-[15px] text-center md:text-start"
-                >
-                  30.09.2025
-                </p>
-                <p class="font-[500] text-[#474747] text-center md:text-start">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua
-                </p>
-              </div>
-            </a>
-
-             <a href="newsIn.html" class="news-item max-w-[420px] bg-white shadow-sm newsHoverIn">
-              <img class="w-full" src="/img/oKompany.jpg" alt="" />
-
-              <div class="p-5">
-                <h2
-                  class="newsTitle text-[16px] sm:text-[18px] lg:text-[20px] font-[700] text-[#474747]  mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center md:text-start"
-                >
-                  Lorem ipsum dolor sit amet
-                </h2>
-                <div
-                  class="hidden md:block w-[60px] h-1 lg:h-[6px] bg-[#004B8B] mb-[12px] lg:mb-[14px]"
-                ></div>
-
-                <p
-                  class="text-[#004B8B] text-[14px] font-[600] mb-[15px] text-center md:text-start"
-                >
-                  30.09.2025
-                </p>
-                <p class="font-[500] text-[#474747] text-center md:text-start">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua
-                </p>
-              </div>
-            </a>
-
-             <a href="newsIn.html" class="news-item max-w-[420px] bg-white shadow-sm newsHoverIn">
-              <img class="w-full" src="/img/oKompany.jpg" alt="" />
-
-              <div class="p-5">
-                <h2
-                  class="newsTitle text-[16px] sm:text-[18px] lg:text-[20px] font-[700] text-[#474747]  mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center md:text-start"
-                >
-                  Lorem ipsum dolor sit amet
-                </h2>
-                <div
-                  class="hidden md:block w-[60px] h-1 lg:h-[6px] bg-[#004B8B] mb-[12px] lg:mb-[14px]"
-                ></div>
-
-                <p
-                  class="text-[#004B8B] text-[14px] font-[600] mb-[15px] text-center md:text-start"
-                >
-                  30.09.2025
-                </p>
-                <p class="font-[500] text-[#474747] text-center md:text-start">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua
-                </p>
-              </div>
-            </a>
-
-             <a href="newsIn.html" class="news-item max-w-[420px] bg-white shadow-sm newsHoverIn">
-              <img class="w-full" src="/img/oKompany.jpg" alt="" />
-
-              <div class="p-5">
-                <h2
-                  class="newsTitle text-[16px] sm:text-[18px] lg:text-[20px] font-[700] text-[#474747]  mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center md:text-start"
-                >
-                  Lorem ipsum dolor sit amet
-                </h2>
-                <div
-                  class="hidden md:block w-[60px] h-1 lg:h-[6px] bg-[#004B8B] mb-[12px] lg:mb-[14px]"
-                ></div>
-
-                <p
-                  class="text-[#004B8B] text-[14px] font-[600] mb-[15px] text-center md:text-start"
-                >
-                  30.09.2025
-                </p>
-                <p class="font-[500] text-[#474747] text-center md:text-start">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua
-                </p>
-              </div>
-            </a>
-
-             <a href="newsIn.html" class="news-item max-w-[420px] bg-white shadow-sm newsHoverIn">
-              <img class="w-full" src="/img/oKompany.jpg" alt="" />
-
-              <div class="p-5">
-                <h2
-                  class="newsTitle text-[16px] sm:text-[18px] lg:text-[20px] font-[700] text-[#474747]  mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center md:text-start"
-                >
-                  Lorem ipsum dolor sit amet
-                </h2>
-                <div
-                  class="hidden md:block w-[60px] h-1 lg:h-[6px] bg-[#004B8B] mb-[12px] lg:mb-[14px]"
-                ></div>
-
-                <p
-                  class="text-[#004B8B] text-[14px] font-[600] mb-[15px] text-center md:text-start"
-                >
-                  30.09.2025
-                </p>
-                <p class="font-[500] text-[#474747] text-center md:text-start">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua
-                </p>
-              </div>
-            </a>
-
-            <!-- hidden -->
-      
-             <a href="newsIn.html" class=" news-item max-w-[420px] bg-white shadow-sm newsHoverIn">
-              <img class="w-full" src="/img/oKompany.jpg" alt="" />
-
-              <div class="p-5">
-                <h2
-                  class="newsTitle text-[16px] sm:text-[18px] lg:text-[20px] font-[700] text-[#474747]  mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center md:text-start"
-                >
-                  Lorem ipsum dolor sit amet
-                </h2>
-                <div
-                  class="hidden md:block w-[60px] h-1 lg:h-[6px] bg-[#004B8B] mb-[12px] lg:mb-[14px]"
-                ></div>
-
-                <p
-                  class="text-[#004B8B] text-[14px] font-[600] mb-[15px] text-center md:text-start"
-                >
-                  30.09.2025
-                </p>
-                <p class="font-[500] text-[#474747] text-center md:text-start">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua
-                </p>
-              </div>
-            </a>
-
-             <a href="newsIn.html" class=" news-item max-w-[420px] bg-white shadow-sm newsHoverIn">
-              <img class="w-full" src="/img/oKompany.jpg" alt="" />
-
-              <div class="p-5">
-                <h2
-                  class="newsTitle text-[16px] sm:text-[18px] lg:text-[20px] font-[700] text-[#474747]  mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center md:text-start"
-                >
-                  Lorem ipsum dolor sit amet
-                </h2>
-                <div
-                  class="hidden md:block w-[60px] h-1 lg:h-[6px] bg-[#004B8B] mb-[12px] lg:mb-[14px]"
-                ></div>
-
-                <p
-                  class="text-[#004B8B] text-[14px] font-[600] mb-[15px] text-center md:text-start"
-                >
-                  30.09.2025
-                </p>
-                <p class="font-[500] text-[#474747] text-center md:text-start">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua
-                </p>
-              </div>
-            </a>
-
-             <a href="newsIn.html" class=" news-item max-w-[420px] bg-white shadow-sm newsHoverIn">
-              <img class="w-full" src="/img/oKompany.jpg" alt="" />
-
-              <div class="p-5">
-                <h2
-                  class="newsTitle text-[16px] sm:text-[18px] lg:text-[20px] font-[700] text-[#474747]  mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center md:text-start"
-                >
-                  Lorem ipsum dolor sit amet
-                </h2>
-                <div
-                  class="hidden md:block w-[60px] h-1 lg:h-[6px] bg-[#004B8B] mb-[12px] lg:mb-[14px]"
-                ></div>
-
-                <p
-                  class="text-[#004B8B] text-[14px] font-[600] mb-[15px] text-center md:text-start"
-                >
-                  30.09.2025
-                </p>
-                <p class="font-[500] text-[#474747] text-center md:text-start">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua
-                </p>
-              </div>
-            </a>
-
-                <a href="newsIn.html" class=" news-item max-w-[420px] bg-white shadow-sm newsHoverIn">
-              <img class="w-full" src="/img/oKompany.jpg" alt="" />
-
-              <div class="p-5">
-                <h2
-                  class="newsTitle text-[16px] sm:text-[18px] lg:text-[20px] font-[700] text-[#474747]  mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center md:text-start"
-                >
-                  Lorem ipsum dolor sit amet
-                </h2>
-                <div
-                  class="hidden md:block w-[60px] h-1 lg:h-[6px] bg-[#004B8B] mb-[12px] lg:mb-[14px]"
-                ></div>
-
-                <p
-                  class="text-[#004B8B] text-[14px] font-[600] mb-[15px] text-center md:text-start"
-                >
-                  30.09.2025
-                </p>
-                <p class="font-[500] text-[#474747] text-center md:text-start">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua
-                </p>
-              </div>
-            </a>
-
-             <a href="newsIn.html" class=" news-item max-w-[420px] bg-white shadow-sm newsHoverIn">
-              <img class="w-full" src="/img/oKompany.jpg" alt="" />
-
-              <div class="p-5">
-                <h2
-                  class="newsTitle text-[16px] sm:text-[18px] lg:text-[20px] font-[700] text-[#474747]  mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center md:text-start"
-                >
-                  Lorem ipsum dolor sit amet
-                </h2>
-                <div
-                  class="hidden md:block w-[60px] h-1 lg:h-[6px] bg-[#004B8B] mb-[12px] lg:mb-[14px]"
-                ></div>
-
-                <p
-                  class="text-[#004B8B] text-[14px] font-[600] mb-[15px] text-center md:text-start"
-                >
-                  30.09.2025
-                </p>
-                <p class="font-[500] text-[#474747] text-center md:text-start">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua
-                </p>
-              </div>
-            </a>
-
-             <a href="newsIn.html" class=" news-item max-w-[420px] bg-white shadow-sm newsHoverIn">
-              <img class="w-full" src="/img/oKompany.jpg" alt="" />
-
-              <div class="p-5">
-                <h2
-                  class="newsTitle text-[16px] sm:text-[18px] lg:text-[20px] font-[700] text-[#474747]  mb-[4px] sm:mb-[8px] lg:mb-[14px] text-center md:text-start"
-                >
-                  Lorem ipsum dolor sit amet
-                </h2>
-                <div
-                  class="hidden md:block w-[60px] h-1 lg:h-[6px] bg-[#004B8B] mb-[12px] lg:mb-[14px]"
-                ></div>
-
-                <p
-                  class="text-[#004B8B] text-[14px] font-[600] mb-[15px] text-center md:text-start"
-                >
-                  30.09.2025
-                </p>
-                <p class="font-[500] text-[#474747] text-center md:text-start">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua
-                </p>
-              </div>
-            </a>
        
           </div>
 

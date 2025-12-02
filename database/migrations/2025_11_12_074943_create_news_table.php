@@ -14,9 +14,14 @@ return new class extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->id();
             $table->string('img');
-            $table->string('title');
-            $table->longText('text');
+            $table->string('title_uz');
+            $table->string('title_ru');
+            $table->string('title_en');
+            $table->longText('text_uz');
+            $table->longText('text_ru');
+            $table->longText('text_en');
             $table->date('newsDate');
+             $table->string('slug');
             $table->timestamps();
         });
     }

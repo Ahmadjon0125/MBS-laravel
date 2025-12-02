@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
+@php
+  $locale = App::getLocale();
+@endphp
+
   @section('content') 
 
       <!-- 1-section -->
-       <x-hero :title="'Услуги'"  :breadcrumbs="['Главная' => url('/'), 'Услуги' => url('/portfolio')]" />
+       <x-hero :title="__('app.service')"  :breadcrumbs="[__('app.home') => url('/'), __('app.service') => url('/portfolio')]" />
 
       <!-- 2-section -->
       <section class="py-6 sm:py-10 lg:pt-[95px] lg:pb-[100px]">
@@ -26,7 +30,7 @@
               ></div>
               <div class="z-1">
                 <h3 class="md:text-[22px] font-bold  uppercase mb-[16px]">
-                 {{ $service ->title}}
+                 {{ Str::limit( $service ->{'title_' . $locale}, 50) }}
                 </h3>
                 <div
                   class="w-[60px] h-[3px] md:h-[6px] bg-white mx-auto mb-[10px]"
@@ -34,7 +38,7 @@
                 <p
                   class="text-[16px] font-[500] leading-relaxed mb-[15px] md:mb-[24px]"
                 >
-                  {{ Str::limit($service->text, 150) }}
+                  {!! Str::limit($service->{'text_' . $locale}, 150) !!}
                 </p>
                 <div
                   class="w-[30px] md:w-[50px] h-0 overflow-hidden bg-white mx-auto linkHoverInfo"
